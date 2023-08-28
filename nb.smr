@@ -1,0 +1,5 @@
+fc pow(numb,time)
+    print(numb**time)
+end
+
+pow(5,5)
