@@ -398,7 +398,8 @@ int debug()
     COLOR_PRINT(">>>",14);
     while(std::getline(std::cin,str))
     {
-        shimmer::solve(str);
+        std::any a=shimmer::solve(str);
+        if(a.type()==typeid(shimmer::result))break;
         COLOR_PRINT("\n>>>",14);
     }
 	return 0;

@@ -75,7 +75,7 @@ namespace shimmer
                 }
                 print(shimmer::solve(tp),eval("ends"),'\n');
             }
-            else if(startwith(s,"fc"))
+            else if(startwith(s,"fn"))
             {
                 int b=1;
                 int i=2;
@@ -109,6 +109,8 @@ namespace shimmer
                 }
                 func.mp[trim(token)].push_back(all);
             }
+
+            else if(trim(s)=="exit()")return result{NULL,NULL};
             else return eval(s);
         }
         return 0;

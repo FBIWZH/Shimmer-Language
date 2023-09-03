@@ -1,4 +1,4 @@
-fc pow(numb,time)
+fn pow(numb,time)
     print(numb**time)
 end
 

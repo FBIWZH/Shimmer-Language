@@ -22,7 +22,11 @@ int main(int argc, char *argv[])
                 freopen(argv[i],"r",stdin);
                 string str;
                 while(std::getline(cin,str))
-                    shimmer::solve(str);
+                {
+                    any a=shimmer::solve(str);
+                    if(a.type()==typeid(shimmer::result))break;
+                }
+                    
             }
         }
         if(arg=="-c")
