@@ -1,5 +1,3 @@
 fn pow(numb,time)
-    print(numb**time)
+    return numb**time
 end
-
-pow(5,5)

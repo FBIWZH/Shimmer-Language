@@ -36,44 +36,17 @@ namespace shimmer
                     t+=s[i++];
                 }
                 t.erase(t.size()-1,t.size());
-                std::vector<std::any> res;
-                string tp;
+                string tp;b=0;
                 for(int j=0;j<t.size();j++)
                 {
-                    if(t[j]==',')
+                    if(t[j]==','&&(!b))
                     {
                         print(shimmer::solve(tp),eval("ends"));
                         tp.clear();
                     }
-                    else tp+=t[j];
+                    else tp+=t[j],b+=int(t[j]=='(')-int(t[j]==')');
                 }
-                print(shimmer::solve(tp),eval("ends"));
-            }
-            else if(startwith(s,"println"))
-            {
-                int b=1;
-                int i=5;
-                string t;
-                while(s[i]==' '||s[i]=='\t'||s[i]=='(')i++;
-                while(b&&i<s.size())
-                {
-                    if(s[i]==')')b--;
-                    else if(s[i]=='(')b++;
-                    t+=s[i++];
-                }
-                t.erase(t.size()-1,t.size());
-                std::vector<std::any> res;
-                string tp;
-                for(int j=0;j<t.size();j++)
-                {
-                    if(t[j]==',')
-                    {
-                        print(shimmer::solve(tp),eval("ends"));
-                        tp.clear();
-                    }
-                    else tp+=t[j];
-                }
-                print(shimmer::solve(tp),eval("ends"),'\n');
+                print(shimmer::solve(tp));
             }
             else if(startwith(s,"fn"))
             {

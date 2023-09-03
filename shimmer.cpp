@@ -26,7 +26,6 @@ int main(int argc, char *argv[])
                     any a=shimmer::solve(str);
                     if(a.type()==typeid(shimmer::result))break;
                 }
-                    
             }
         }
         if(arg=="-c")

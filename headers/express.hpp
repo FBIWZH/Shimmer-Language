@@ -283,13 +283,22 @@ namespace shimmer
                         r.setstr(tp);int k=0;
                         variable.set(data[tot++],r.evaluate());
                         tp.clear();string x=data[data.size()-1];
+                        int qwe=1;
                         while(k<x.size())
                         {
                             string nexp;
                             while(x[k]!='\n'&&k<x.size())nexp+=x[k++];k++;
-                            solve(nexp);
+                            if(startwith(nexp,"return"))
+                            {
+                                string ret="";
+                                for(int q=6;q<nexp.size();q++)ret+=nexp[q];
+                                r.setstr(ret);
+                                st.push(r.evaluate());
+                                qwe=0;
+                            }
+                            else solve(nexp);
                         }
-                        st.push(0);
+                        if(qwe)st.push(0);
                     }
                     else if(s[i]=='[')
                     {

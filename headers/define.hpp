@@ -43,6 +43,7 @@ namespace shimmer
             
         }
     }variable;
+    bool startwith(std::string,std::string);
 }
 template<typename T>
 inline int print(T x)
@@ -101,3 +102,4 @@ std::string trim(const std::string& str) {
 			                                        // 字符个数：pos2-pos+1
 		return str.substr(pos);
 	}
+
