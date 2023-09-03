@@ -10,7 +10,7 @@
                 "${file}",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
-                //"-O4","-Ofast",
+                "-O4","-Ofast",
                 "-std=c++17"
             ],
             "options": {
