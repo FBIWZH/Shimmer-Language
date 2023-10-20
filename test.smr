@@ -1,3 +1,6 @@
 fn pow(numb,time)
+$ 函数定义
     return numb**time
+$ 函数终止符end
 end
+print( pow( 2 , 114) )
