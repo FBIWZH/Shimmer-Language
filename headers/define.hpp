@@ -7,6 +7,8 @@
 #include                "hint.hpp"
 #include 		   <bits/extc++.h>
 #include 			   <windows.h>
+
+
 #define toint std::any_cast<HyperInt>
 #define todb std::any_cast<double>
 #define varTo std::any_cast
@@ -44,6 +46,7 @@ namespace shimmer
         }
     }variable;
     bool startwith(std::string,std::string);
+    std::any qread();
 }
 template<typename T>
 inline int print(T x)
@@ -80,6 +83,9 @@ inline int print(std::any x)
     }
 	return 0;
 }
+
+
+
 template<typename T,typename ...Args>
 inline int print(T t,Args... args){return print(t)&print(args...);}
 void COLOR_PRINT(const char* s, int color)

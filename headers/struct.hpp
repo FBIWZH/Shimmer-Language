@@ -18,6 +18,16 @@ namespace shimmer
         e.setstr(s);
         return e.evaluate();
     }
+    std::any qread()
+    {
+        
+        std::string s;
+        freopen("CON","r",stdin);
+        std::cin>>s;
+        std::any x=eval(s);
+        freopen(fina,"r",stdin);
+        return x;
+    }
     inline std::any solve(std::string s)
     {
         //std::cout<<s<<std::endl;

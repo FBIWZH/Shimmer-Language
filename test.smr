@@ -1,6 +1,15 @@
-fn pow(numb,time)
-$ 函数定义
-    return numb**time
-$ 函数终止符end
+fn pow(__numb,__time)
+    return __numb**__time
 end
-print( pow( 2 , 114) )
+
+fn mod(__mod_1__,__mod_2__)
+    return __mod_1__%__mod_2__
+end
+
+
+a=[1,1,4,5,1,4]
+
+x=input()
+a[0]=x
+
+print(a[0])

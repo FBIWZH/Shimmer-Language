@@ -1,3 +1,4 @@
+char *fina;
 #include "headers\struct.hpp"
 using namespace std;
 wchar_t *GetWC(char *c)
@@ -19,6 +20,7 @@ int main(int argc, char *argv[])
         {
             for(int i=2;i<=argc;i++)
             {
+                fina=argv[i];
                 freopen(argv[i],"r",stdin);
                 string str;
                 while(std::getline(cin,str))

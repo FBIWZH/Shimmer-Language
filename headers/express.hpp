@@ -251,6 +251,7 @@ namespace shimmer
                     while(delim(s[i]))i++;
                     if(s[i]=='(')
                     {
+                        if(token=="input"){st.push(qread());i+=2;continue;}
                         i++;
                         auto m = func.lookup(token);
                         auto data = varTo< std::vector<string> > (m.value);
@@ -262,6 +263,7 @@ namespace shimmer
                             else if(s[i]=='(')b++;
                             t+=s[i++];
                         }
+                        
                         t.erase(t.size()-1,t.size());
                         string tp;int tot=0;
                         for(int j=0;j<t.size();j++)
@@ -279,6 +281,7 @@ namespace shimmer
                                 tp+=t[j];
                             }
                         }
+                        
                         expression r;
                         r.setstr(tp);int k=0;
                         variable.set(data[tot++],r.evaluate());
