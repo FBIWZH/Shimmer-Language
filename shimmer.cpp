@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     if(argc>2)
     {
         string arg=argv[1];
-        if(arg=="-run")
+        if(arg[0]!='-')
         {
             for(int i=2;i<=argc;i++)
             {

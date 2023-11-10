@@ -44,7 +44,7 @@ namespace shimmer
             else vars[name]=p;
             
         }
-    }variable;
+    } variable;
     bool startwith(std::string,std::string);
     std::any qread();
 }

@@ -254,7 +254,7 @@ namespace shimmer
                         if(token=="input"){st.push(qread());i+=2;continue;}
                         i++;
                         auto m = func.lookup(token);
-                        auto data = varTo< std::vector<string> > (m.value);
+                        auto data = varTo<std::vector<string>>(m.value);
                         int b=1;
                         string t;
                         while(b&&i<s.size())

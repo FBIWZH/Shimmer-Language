@@ -8,15 +8,35 @@ namespace shimmer
             if(f[i]!=son[i])return false;
         return true;
     }
-    inline void isif()
-    {
-        
-    }
     inline std::any eval(std::string s)
     {
         expression e;
         e.setstr(s);
         return e.evaluate();
+    }
+    inline void isif(std::string s)
+    {
+        s.erase(s.begin(),s.begin()+2);
+        trim(s);
+            s.erase(s.end()-1);
+            std::any k=eval(s);
+            bool f=0;
+            if(k.type()==typeid(string)||k.type()==typeid(std::vector<std::any>))
+            {
+                std::cout<<"Error: the type of the `if` can not be `string` or `list`.";
+                return ;
+            }
+            if(k.type()==typeid(int))
+                {f=varTo<int>(k)!=0;}
+            if(k.type()==typeid(HyperInt))
+                {f=toint(k)!=0;}
+            if(k.type()==typeid(long long))
+                {f=varTo<long long>(k)!=0;}
+            if(k.type()==typeid(float))
+                {f=varTo<float>(k)!=0;}
+            if(k.type()==typeid(double))
+                {f=varTo<double>(k)!=0;}
+            
     }
     std::any qread()
     {
@@ -92,7 +112,10 @@ namespace shimmer
                 }
                 func.mp[trim(token)].push_back(all);
             }
-
+            else if(startwith(trim(s),"if"))
+            {
+                isif(s);
+            }
             else if(trim(s)=="exit()")return result{NULL,NULL};
             else return eval(s);
         }
