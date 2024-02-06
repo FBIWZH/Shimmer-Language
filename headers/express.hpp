@@ -25,6 +25,7 @@ namespace shimmer
         {
             if(ary)return 10;
             if (op=="+"||op=="-") return 1;
+            if (op=="+="||op=="-="||op=="/="||op=="*="||op=="**=") return -3;
             if (op=="*"||op=="/") return 2;
             if (op=="**") return 100;
             if (op=="||"||op=="&&")return -1;
@@ -44,6 +45,12 @@ namespace shimmer
                     if(op=="+")st.push(toint(l));
                     else if(op=="-")st.push(-toint(l));
                     else if(op=="!")st.push(toint(l)==0?1:0);
+                }
+                if(typeid(settles)==l.type())
+                {
+                    if(op=="+")st.push(std::any_cast<settles>(l).v);
+                    else if(op=="-")st.push(-toint(std::any_cast<settles>(l).v));
+                    else if(op=="!")st.push(toint(std::any_cast<settles>(l).v)==0?1:0);
                 }
                 
             } 
@@ -88,6 +95,103 @@ namespace shimmer
                     else if(op==">")st.push(HyperInt(int(toint(l)>todb(r))));
                     else if(op=="<=")st.push(HyperInt(int(toint(l)<=todb(r))));
                     else if(op==">=")st.push(HyperInt(int(toint(l)>=todb(r))));
+                }
+                else if((typeid(settles)==l.type()&&typeid(settles)!=r.type()))
+                {
+                    if(op=="+=")
+                    {
+                        st.push(std::any_cast<settles>(l).v);
+                        st.push(r);
+                        process_op(st,"+",ary);
+                        variable.set(std::any_cast<settles>(l).name,st.top());
+                    }
+                    else if(op=="-=")
+                    {
+                        st.push(std::any_cast<settles>(l).v);
+                        st.push(r);
+                        process_op(st,"-",ary);
+                        variable.set(std::any_cast<settles>(l).name,st.top());
+                    }
+                    else if(op=="*=")
+                    {
+                        st.push(std::any_cast<settles>(l).v);
+                        st.push(r);
+                        process_op(st,"*",ary);
+                        variable.set(std::any_cast<settles>(l).name,st.top());
+                    }
+                    else if(op=="/=")
+                    {
+                        st.push(std::any_cast<settles>(l).v);
+                        st.push(r);
+                        process_op(st,"/",ary);
+                        variable.set(std::any_cast<settles>(l).name,st.top());
+                    }
+                    else if(op=="**=")
+                    {
+                        st.push(std::any_cast<settles>(l).v);
+                        st.push(r);
+                        process_op(st,"**",ary);
+                        variable.set(std::any_cast<settles>(l).name,st.top());
+                    }
+                    else
+                    {
+                        st.push(std::any_cast<settles>(l).v);
+                        st.push(r);
+                        process_op(st,op,ary);
+                    }
+                    
+                }
+                else if((typeid(settles)==r.type()&&typeid(settles)!=l.type()))
+                {
+                    
+                    st.push(l);
+                    st.push(std::any_cast<settles>(r).v);
+                    process_op(st,op,ary);
+                }
+                else if((typeid(settles)==l.type()&&typeid(settles)==r.type()))
+                {
+                    if(op=="+=")
+                    {
+                        st.push(std::any_cast<settles>(l).v);
+                        st.push(std::any_cast<settles>(r).v);
+                        process_op(st,"+",ary);
+                        variable.set(std::any_cast<settles>(l).name,st.top());
+                    }
+                    else if(op=="-=")
+                    {
+                        st.push(std::any_cast<settles>(l).v);
+                        st.push(std::any_cast<settles>(r).v);
+                        process_op(st,"-",ary);
+                        variable.set(std::any_cast<settles>(l).name,st.top());
+                    }
+                    else if(op=="*=")
+                    {
+                        st.push(std::any_cast<settles>(l).v);
+                        st.push(std::any_cast<settles>(r).v);
+                        process_op(st,"*",ary);
+                        variable.set(std::any_cast<settles>(l).name,st.top());
+                    }
+                    else if(op=="/=")
+                    {
+                        st.push(std::any_cast<settles>(l).v);
+                        st.push(std::any_cast<settles>(r).v);
+                        process_op(st,"/",ary);
+                        variable.set(std::any_cast<settles>(l).name,st.top());
+                    }
+                    else if(op=="**=")
+                    {
+                        st.push(std::any_cast<settles>(l).v);
+                        st.push(std::any_cast<settles>(r).v);
+                        process_op(st,"**",ary);
+                        variable.set(std::any_cast<settles>(l).name,st.top());
+                    }
+                    else
+                    {
+                        st.push(std::any_cast<settles>(l).v);
+                        st.push(std::any_cast<settles>(r).v);
+                        process_op(st,op,ary);
+                        variable.set(std::any_cast<settles>(l).name,st.top());
+                    }
                 }
                 else if(typeid(HyperInt)==r.type()&&typeid(double)==l.type())
                 {
@@ -385,7 +489,8 @@ namespace shimmer
                             std::cout<<"Error: the '"<<token<<"' was not decleared in this scope.";
                             return k;
                         }
-                        st.push(temp.value);
+                        settles pl={temp.value,token};
+                        st.push(pl);
                     }
                     may_be_unary = false;
                     i--;
@@ -397,7 +502,8 @@ namespace shimmer
                 process_op(st, op.top().first,op.top().second);
                 op.pop();
             }
-            return st.top();
+            if(st.top().type()!=typeid(settles))return st.top();
+            else return std::any_cast<settles>(st.top()).v;
         }
     };
     
@@ -406,7 +512,7 @@ namespace shimmer
 int debug()
 {
 	std::string str;
-    COLOR_PRINT("shimmer alpha v0.1.0\ncreate by FBIWZH.\n",11);
+    COLOR_PRINT("shimmer alpha v0.2.1\ncreate by FBIWZH.\n",11);
     COLOR_PRINT(">>>",14);
     while(std::getline(std::cin,str))
     {

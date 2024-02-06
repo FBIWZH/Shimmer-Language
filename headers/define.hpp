@@ -14,6 +14,11 @@
 #define varTo std::any_cast
 typedef std::vector<std::any> list;
 using __gnu_pbds::gp_hash_table;
+struct settles
+{
+    std::any v;
+    std::string name;
+};
 namespace shimmer
 {
     inline std::any solve(std::string s);

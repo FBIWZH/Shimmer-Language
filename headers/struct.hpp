@@ -18,24 +18,35 @@ namespace shimmer
     {
         s.erase(s.begin(),s.begin()+2);
         trim(s);
-            s.erase(s.end()-1);
             std::any k=eval(s);
             bool f=0;
+            std::string sk;
+            std::vector< std::string > todo;
+            while(sk!="endif")
+            {
+                getline(std::cin,sk);
+                todo.push_back(sk);
+            }
+            todo[todo.size()-1]="1";
             if(k.type()==typeid(string)||k.type()==typeid(std::vector<std::any>))
             {
                 std::cout<<"Error: the type of the `if` can not be `string` or `list`.";
                 return ;
             }
             if(k.type()==typeid(int))
-                {f=varTo<int>(k)!=0;}
+                if(f=varTo<int>(k)==0)return;
             if(k.type()==typeid(HyperInt))
-                {f=toint(k)!=0;}
+                if(f=toint(k)==0)return;
             if(k.type()==typeid(long long))
-                {f=varTo<long long>(k)!=0;}
+                if(f=varTo<long long>(k)==0)return;
             if(k.type()==typeid(float))
-                {f=varTo<float>(k)!=0;}
+                if(f=varTo<float>(k)==0)return;
             if(k.type()==typeid(double))
-                {f=varTo<double>(k)!=0;}
+                if(f=varTo<double>(k)==0)return;
+        for(auto l:todo)
+        {
+            solve(l);
+        }
             
     }
     std::any qread()
