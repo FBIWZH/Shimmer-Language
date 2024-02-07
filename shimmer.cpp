@@ -1,4 +1,5 @@
-char *fina;
+char con[]="CON";
+char *fin=con;
 #include "headers\struct.hpp"
 using namespace std;
 wchar_t *GetWC(char *c)
@@ -13,14 +14,14 @@ int main(int argc, char *argv[])
 {
     shimmer::variable.set("ends"," ");
     if(argc==1){debug();return 0;}
-    if(argc>2)
+    if(argc>=2)
     {
         string arg=argv[1];
         if(arg[0]!='-')
         {
             for(int i=2;i<=argc;i++)
             {
-                fina=argv[i];
+                fin=argv[i];
                 freopen(argv[i],"r",stdin);
                 string str;
                 while(std::getline(cin,str))

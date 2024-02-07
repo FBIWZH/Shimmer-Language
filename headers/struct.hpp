@@ -22,7 +22,7 @@ namespace shimmer
             bool f=0;
             std::string sk;
             std::vector< std::string > todo;
-            while(sk!="endif")
+            while(sk!="end")
             {
                 getline(std::cin,sk);
                 todo.push_back(sk);
@@ -56,7 +56,7 @@ namespace shimmer
         freopen("CON","r",stdin);
         std::cin>>s;
         std::any x=eval(s);
-        freopen(fina,"r",stdin);
+        freopen(fin,"r",stdin);
         return x;
     }
     inline std::any solve(std::string s)
