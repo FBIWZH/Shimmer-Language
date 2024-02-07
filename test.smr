@@ -2,14 +2,7 @@ fn pow(__numb,__time)
     return __numb**__time
 end
 
-fn mod(__mod_1__,__mod_2__)
-    return __mod_1__%__mod_2__
+fn sin(__arg_sin_x__)
+    return __arg_sin_x__-1/6*__arg_sin_x__**3+1/120*__arg_sin_x__**5
 end
 
-
-a=[1,1,4,5,1,4]
-
-x=input()
-a[0]=x
-
-print(a[0])
